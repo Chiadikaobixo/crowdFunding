@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "deploy": "set NODE_OPTIONS=--openssl-legacy-provider && node ethereum/deploy.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@truffle/hdwallet-provider": "^2.0.13",
+    "dotenv": "^16.0.1",
     "fs-extra": "^10.1.0",
     "ganache": "^7.4.0",
     "mocha": "^10.0.0",
