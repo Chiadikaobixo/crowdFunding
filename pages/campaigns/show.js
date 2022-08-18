@@ -1,12 +1,12 @@
 import React from "react";
-import CreateCampaign from "../../components/createCampaign/CreateCampaign";
 import Header from "../../components/header/Header";
+import IndividualCampaign from "../../components/individualCampaign/IndividualCampaign";
 
 export default () => {
     return (
         <div>
             <Header />
-            <CreateCampaign />
+            <IndividualCampaign />
         </div>
     )
 }

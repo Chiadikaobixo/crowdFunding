@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import factory from "../../ethereum/factory"
+import { Link } from "../../routes"
 
 
-const CampaignIndex = () => {
+const CampaignDashboard = () => {
     const [campaigns, setCampaigns] = useState([])
 
     useEffect(() => {
@@ -23,15 +24,23 @@ const CampaignIndex = () => {
                 {campaigns.map((campaign, index) => {
                     return <div key={index}>
                         <p>{campaign}</p>
-                        <h3>View Campaign</h3>
+                        <Link route={`/campaigns/${campaign}`}>
+                            <a>
+                                <h3>View Campaign</h3>
+                            </a>
+                        </Link>
                     </div>
                 })}
             </div>
             <div>
-                <button>Create Campaign</button>
+                <Link route="/campaigns/new">
+                    <a>
+                        <button>Create Campaign</button>
+                    </a>
+                </Link>
             </div>
         </div>
     )
 }
 
-export default CampaignIndex
+export default CampaignDashboard

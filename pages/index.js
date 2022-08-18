@@ -1,12 +1,12 @@
 import React from 'react'
-import CampaignIndex from '../components/campaignIndex/CampaignIndex'
+import CampaignDashboard from '../components/campaignDashboard/CampaignDashboard'
 import Header from '../components/header/Header'
 
 export default () => {
     return (
         <div>
             <Header />
-            <CampaignIndex />
+            <CampaignDashboard />
         </div>
     )
 }
