@@ -9,7 +9,6 @@ const CampaignDashboard = () => {
     useEffect(() => {
         const details = async () => {
             const campaigns = await factory.methods.getDeployedCampaign().call()
-            console.log(campaigns)
             setCampaigns(campaigns)
         }
         details()

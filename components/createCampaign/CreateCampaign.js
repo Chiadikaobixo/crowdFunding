@@ -70,7 +70,7 @@ const CreateCampaign = () => {
                 isOpen={modalIsOpen}
                 style={customStyles}
             >
-                <div>Your transaction been processed</div>
+                <div>Your transaction is been processed</div>
                 <h4>Please wait</h4>
             </Modal>
         </div>
