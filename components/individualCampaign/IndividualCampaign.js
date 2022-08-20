@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import campaign from "../../ethereum/campaign"
-import ItemCard from "./ItemCard";
+import ItemCard from "../shared/card/ItemCard";
 import web3 from "../../ethereum/web3";
+import ContributeForm from "../form/ContributeForm";
 
 const IndividualCampaign = () => {
     const [summary, setSummary] = useState([])
@@ -18,16 +19,18 @@ const IndividualCampaign = () => {
         details()
     }, [])
 
-
     const fetchedSummary = {
         balance: summary[0],
         minimumContribution: summary[1],
         requestCount: summary[2],
         approversCount: summary[3],
-        manager: summary[4]
-}
-    const {minimumContribution, balance, requestCount, approversCount, manager} = fetchedSummary
-    
+        manager: summary[4],
+        campaignAddress: address
+    }
+    const { minimumContribution, balance, requestCount, approversCount, manager, campaignAddress } = fetchedSummary
+
+
+
     const items = [
         {
             headers: manager,
@@ -35,12 +38,12 @@ const IndividualCampaign = () => {
             description: "The manager created this campaign and can create request for withdrawal"
         },
         {
-            headers: minimumContribution,
+            headers: minimumContribution === undefined ? minimumContribution : web3.utils.fromWei(String(minimumContribution), 'ether'),
             title: "Minimum Contribution",
-            description: "You must contribute at least this much wei to become an approval"
+            description: "You must contribute at least this much Eth to become an approval"
         },
         {
-            headers: balance,
+            headers: balance === undefined ? balance : web3.utils.fromWei(String(balance), 'ether'),
             title: "Campaign Balance (ether)",
             description: "Remaining balance of the campaign"
         },
@@ -58,13 +61,16 @@ const IndividualCampaign = () => {
 
     return (
         <div>
-            <h1>Campaign Show</h1>
+            <h1>Campaign Details</h1>
             <div>
-            {
-                items.map((item, index) => (
-                    <ItemCard {...item} key={index} />
-                ))
-            }
+                {
+                    items.map((item, index) => (
+                        <ItemCard {...item} key={index} />
+                    ))
+                }
+            </div>
+            <div>
+                <ContributeForm address={campaignAddress} />
             </div>
         </div>
     )

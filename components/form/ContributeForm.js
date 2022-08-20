@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import factory from "../../ethereum/factory"
+import campaign from '../../ethereum/campaign'
 import web3 from "../../ethereum/web3";
-import { Router } from "../../routes"
 import ContractModal from "../shared/modal/Modal";
 
-
-const CreateCampaign = () => {
-    const [minimumContribution, setminimumContribution] = useState('')
+const ContributeForm = ({address}) => {
+    const [amount, setAmount] = useState('')
     const [error, setError] = useState('')
     const [modalIsOpen, setIsOpen] = useState(false);
 
     const handleChange = (e) => {
-        setminimumContribution(e.target.value)
+        setAmount(e.target.value)
         setError('')
     }
 
@@ -19,12 +17,14 @@ const CreateCampaign = () => {
         e.preventDefault()
         setIsOpen(true);
         setError('')
+
         try {
             const accounts = await web3.eth.getAccounts()
-            await factory.methods.createCampaign(web3.utils.toWei(minimumContribution, 'ether')).send({
-                from: accounts[0]
+            const campaigns = campaign(address)
+            await campaigns.methods.contribute().send({
+                from: accounts[0],
+                value: web3.utils.toWei(amount, 'ether')
             })
-            Router.pushRoute('/')
         } catch (err) {
             setError(err.message)
         }
@@ -33,22 +33,18 @@ const CreateCampaign = () => {
 
     return (
         <div>
-            <div>
-                <h3>Create a Campaign</h3>
-            </div>
-            <hr />
             <form onSubmit={handleSubmit}>
-                <h4>Minimum Contribution (Eth)</h4>
+                <h4>Contribute to this Campaign!</h4>
                 <div>
                     <input
-                        placeholder="ether"
+                        placeholder="Ether"
                         onChange={handleChange}
-                        value={minimumContribution}
+                        value={amount}
                     />
                 </div>
                 <p>{error}</p>
                 <div>
-                    <button>Create</button>
+                    <button>Contribute</button>
                 </div>
             </form>
             <div>
@@ -58,4 +54,4 @@ const CreateCampaign = () => {
     )
 }
 
-export default CreateCampaign
+export default ContributeForm
