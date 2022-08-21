@@ -4,6 +4,8 @@ import campaign from "../../ethereum/campaign"
 import ItemCard from "../shared/card/ItemCard";
 import web3 from "../../ethereum/web3";
 import ContributeForm from "../form/ContributeForm";
+import { Link } from "../../routes"
+import NewRequest from "../request/NewRequest";
 
 const IndividualCampaign = () => {
     const [summary, setSummary] = useState([])
@@ -18,6 +20,7 @@ const IndividualCampaign = () => {
         }
         details()
     }, [])
+
 
     const fetchedSummary = {
         balance: summary[0],
@@ -71,6 +74,16 @@ const IndividualCampaign = () => {
             </div>
             <div>
                 <ContributeForm address={campaignAddress} />
+            </div>
+            <div>
+                <Link route={`/campaigns/${address}/request`}>
+                    <a>
+                        <button>View Request</button>
+                    </a>
+                </Link>
+            </div>
+            <div>
+                <NewRequest managersAddress={manager} />
             </div>
         </div>
     )

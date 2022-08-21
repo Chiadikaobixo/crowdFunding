@@ -23,7 +23,7 @@ const ContractModal = ({modalIsOpen}) => {
                 isOpen={modalIsOpen}
                 style={customStyles}
             >
-                <div>Your transaction is been processed</div>
+                <div>Transaction has been initiated, waiting for confirmation</div>
                 <h4>Please wait</h4>
             </Modal>
         </div>

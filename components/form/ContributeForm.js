@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import campaign from '../../ethereum/campaign'
 import web3 from "../../ethereum/web3";
 import ContractModal from "../shared/modal/Modal";
+import { Router } from "../../routes"
 
-const ContributeForm = ({address}) => {
+const ContributeForm = ({ address }) => {
     const [amount, setAmount] = useState('')
     const [error, setError] = useState('')
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -25,6 +26,8 @@ const ContributeForm = ({address}) => {
                 from: accounts[0],
                 value: web3.utils.toWei(amount, 'ether')
             })
+            Router.reload()
+
         } catch (err) {
             setError(err.message)
         }
