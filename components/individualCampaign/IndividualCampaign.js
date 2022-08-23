@@ -5,7 +5,6 @@ import ItemCard from "../shared/card/ItemCard";
 import web3 from "../../ethereum/web3";
 import ContributeForm from "../form/ContributeForm";
 import { Link } from "../../routes"
-import NewRequest from "../request/NewRequest";
 
 const IndividualCampaign = () => {
     const [summary, setSummary] = useState([])
@@ -81,9 +80,6 @@ const IndividualCampaign = () => {
                         <button>View Request</button>
                     </a>
                 </Link>
-            </div>
-            <div>
-                <NewRequest managersAddress={manager} />
             </div>
         </div>
     )

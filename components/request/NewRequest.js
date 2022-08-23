@@ -5,7 +5,7 @@ import web3 from '../../ethereum/web3'
 import { Router } from "../../routes"
 import ContractModal from '../shared/modal/Modal'
 
-export default function NewRequest({ managersAddress }) {
+export default function NewRequest() {
     const [description, setDescription] = useState('')
     const [amount, setAmount] = useState('')
     const [recipient, setRecipient] = useState('')
@@ -13,7 +13,8 @@ export default function NewRequest({ managersAddress }) {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [accounts, setAccounts] = useState([])
     const router = useRouter()
-    const address = router.asPath.slice(11)
+    const path = router.asPath.slice(11)
+    const address = path.substring(0, path.length - 12)
 
     useEffect(() => {
         const chiadi = async () => {
@@ -48,43 +49,40 @@ export default function NewRequest({ managersAddress }) {
 
     return (
         <div>
-            {managersAddress === accounts[0] ? (<div>
-                <form onSubmit={handleSubmit}>
-                    <h4>Create Request</h4>
-                    <div>
-                        <label>Description</label>
-                        <input
-                            placeholder="purpose"
-                            onChange={(e) => { setDescription(e.target.value), setError('') }}
-                            value={description}
-                        />
-                    </div>
-                    <div>
-                        <label>Amount in Ether</label>
-                        <input
-                            placeholder="Ether"
-                            onChange={(e) => { setAmount(e.target.value), setError('') }}
-                            value={amount}
-                        />
-                    </div>
-                    <div>
-                        <label>Recipient</label>
-                        <input
-                            placeholder="0x8ca.."
-                            onChange={(e) => { setRecipient(e.target.value), setError('') }}
-                            value={recipient}
-                        />
-                    </div>
-                    <p>{error}</p>
-                    <div>
-                        <button>Create</button>
-                    </div>
-                </form>
+            <form onSubmit={handleSubmit}>
+                <h4>New Request</h4>
                 <div>
-                    <ContractModal modalIsOpen={modalIsOpen} />
+                    <label>Description</label>
+                    <input
+                        placeholder="purpose"
+                        onChange={(e) => { setDescription(e.target.value), setError('') }}
+                        value={description}
+                    />
                 </div>
-            </div>) : ('')}
-
+                <div>
+                    <label>Amount in Ether</label>
+                    <input
+                        placeholder="Ether"
+                        onChange={(e) => { setAmount(e.target.value), setError('') }}
+                        value={amount}
+                    />
+                </div>
+                <div>
+                    <label>Recipient</label>
+                    <input
+                        placeholder="0x8ca.."
+                        onChange={(e) => { setRecipient(e.target.value), setError('') }}
+                        value={recipient}
+                    />
+                </div>
+                <p>{error}</p>
+                <div>
+                    <button>Create</button>
+                </div>
+            </form>
+            <div>
+                <ContractModal modalIsOpen={modalIsOpen} />
+            </div>
         </div>
     )
 }
